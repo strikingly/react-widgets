@@ -19,6 +19,7 @@ module.exports = React.createClass({
   propTypes: {
     data:          React.PropTypes.array,
     onSelect:      React.PropTypes.func,
+	  onMouseEnterSelect: React.PropTypes.func,
     onMove:        React.PropTypes.func,
     itemComponent: CustomPropTypes.elementType,
 
@@ -39,6 +40,7 @@ module.exports = React.createClass({
     return {
       optID:         '',
       onSelect:      ()=>{},
+	    onMouseEnterSelect:      ()=>{},
       data:          [],
       messages: {
         emptyList:   "There are no items in this list"
@@ -82,7 +84,8 @@ module.exports = React.createClass({
               'rw-state-focus':    focused,
               'rw-state-selected': selected,
             })}
-            onClick={this.props.onSelect.bind(null, item)}>
+            onClick={this.props.onSelect.bind(null, item)}
+	          onMouseEnter={this.props.onMouseEnterSelect.bind(null, item)}>
             { ItemComponent
                 ? <ItemComponent item={item}/>
                 : this._dataText(item)

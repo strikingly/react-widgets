@@ -34,6 +34,8 @@ var propTypes = {
                   ]),
 
   onSelect:       React.PropTypes.func,
+	onMouseOut:     React.PropTypes.func,
+	onMouseEnterSelect: React.PropTypes.func,
   
   busy:           React.PropTypes.bool,
 
@@ -124,6 +126,7 @@ var DropdownList = React.createClass({
         ref="element"
         onKeyDown={this._maybeHandle(this._keyDown)}
         onClick={this._maybeHandle(this.toggle)}
+	      onMouseOut={this._maybeHandle(this.props.onMouseOut)}
         onFocus={this._maybeHandle(this._focus.bind(null, true), true)}
         onBlur ={this._focus.bind(null, false)}
         aria-expanded={ this.props.open }
@@ -168,6 +171,7 @@ var DropdownList = React.createClass({
               selected={this.state.selectedItem}
               focused ={this.props.open ? this.state.focusedItem : null}
               onSelect={this._maybeHandle(this._onSelect)}
+	            onMouseEnterSelect={this._maybeHandle(this._onMouseEnterSelect)}
               onMove={this._scrollTo}/>
           </div>
         </Popup>
@@ -194,6 +198,9 @@ var DropdownList = React.createClass({
     this.notify('onSelect', data)
     this.change(data)
   },
+	_onMouseEnterSelect: function (data) {
+		this.notify("onMouseEnterSelect", data);
+	},
 
   _keyDown: function(e){
     var self = this
